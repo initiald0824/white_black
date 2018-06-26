@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>别踩白块儿</title>
+    <link rel="stylesheet" type="text/css" href="static/white.css">
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
+    <script src="static/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="static/white.js"></script>
+</head>
+
+<body>
+    <!-- 整个游戏界面 -->
+    <div id="panel">
+        <!-- 游戏面板 -->
+        <div id="game">
+            <!-- 4*4色块 -->
+            <div id="blocks">
+                <div class="line">
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                </div>
+                <div class="line">
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                </div>
+                <div class="line">
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                </div>
+                <div class="line">
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                    <canvas class="block"></canvas>
+                </div>
+            </div>
+        </div>
+        <!-- 控制面板 -->
+        <div id="control">           
+            <button onclick="start()">重新开始</button>
+        </div>
+    </div>
+    
+</body>
+
+</html>
