@@ -43,7 +43,8 @@ function tap() {
         var c = $(e.target)[0];
         if (c.tagName !== 'CANVAS') {
             over();
-            clearInterval(time);
+            // clearInterval(time);
+            // clearInterval(autoAction);
         }
         var ctx = c.getContext("2d");
         if (Array.from(ctx.getImageData(50, 50, 1, 1).data).toString() == [0, 0, 0, 255].toString()) {
@@ -55,7 +56,8 @@ function tap() {
         } else {
             // 白色游戏结束
             over();
-            clearInterval(time);
+            // clearInterval(time);
+            // clearInterval(autoAction);
         }
     })
 }
@@ -63,13 +65,23 @@ function tap() {
 function autoClick() {
     var length = $('#blocks').find(".line").length;
     var canvasList = $($('#blocks').find(".line").get(length-1)).children();
+    var imageData = [];
+    var index = 0;
+    var action = [0, 0, 0, 0, 0];
     for (var i = 0; i < canvasList.length; i++) {
         var c = canvasList[i];
         var ctx = c.getContext("2d");
+        imageData.push(Array.from(ctx.getImageData(0, 0, c.width, c.height).data));
         if (Array.from(ctx.getImageData(50, 50, 1, 1).data).toString() == [0, 0, 0, 255].toString()) {
-            c.click();
+            action[i] = 1;
+            index = i;
         }
     }
+    $.post('/api/train', {
+        imageData: JSON.stringify(imageData),
+        action: JSON.stringify(action)
+    }, function (r) {
+    }, 'json');
 }
 
 // 色块往下滑动
@@ -81,7 +93,8 @@ function move() {
     // 色块触底则游戏结束
     if ($($("#blocks").find(".line")).length == 5) {
         over();
-        clearInterval(time);
+        // clearInterval(time);
+        // clearInterval(autoAction);
     } else {
         // 脱离顶部之前
         if (btop + speed < 0) {
@@ -94,7 +107,6 @@ function move() {
             $("#blocks").prepend(line);
             // 新增行着色
             setLine(($($("#blocks").find(".line").get(0))).children());
-            autoClick();
         }
     }
 }
@@ -113,7 +125,7 @@ function speedup() {
 
 // 游戏结束
 function over() {
-    alert("game over!\n score=" + score);
+    // alert("game over!\n score=" + score);
     start();
 }
 
@@ -128,7 +140,7 @@ $(document).ready(function() {
     init();
     // 开始游戏，色块移动
     time = setInterval(move, 50);
-    // autoClick = setInterval(autoClick, 600);
+    autoAction = setInterval(autoClick, 50);
     // 点击事件
     tap();
 });
